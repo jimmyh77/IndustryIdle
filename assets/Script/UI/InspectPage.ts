@@ -1,7 +1,7 @@
 import { buildingHasColor, getBuildingColor, resetBuildingColor, setBuildingColor } from "../CoreGame/ColorThemes";
 import { stringToGrid } from "../CoreGame/GridHelper";
-import { batchApply, batchModeLabel, doBatchUpgrade, getBatchUpgradeEstimate } from "../CoreGame/Logic/BatchMode";
-import { getInput, getOutput, InputBufferTypes, InputCapacityOverrideTypes } from "../CoreGame/Logic/Entity";
+import { batchApply, batchModeLabel, doBatchUpgrade, doBatchDowngrade, getBatchUpgradeEstimate } from "../CoreGame/Logic/BatchMode";
+import { Entity, getInput, getOutput, InputBufferTypes, InputCapacityOverrideTypes } from "../CoreGame/Logic/Entity";
 import {
     BLD,
     buildingCanInput,
@@ -475,44 +475,7 @@ export function InspectPage(): m.Comp<{ xy: string }> {
                     m(".box", [
                         m(".two-col.text-s.uppercase", [
                             m("div", t("BatchMode")),
-                            m("div", [
-                                m(
-                                    "span.pointer",
-                                    {
-                                        class: D.persisted.batchMode === "all" ? "blue" : "text-desc",
-                                        onclick: () => {
-                                            D.persisted.batchMode = "all";
-                                            G.audio.playClick();
-                                            G.world.playerInput.highlightOnSelect(entity.grid);
-                                        },
-                                    },
-                                    t("BatchModeAll")
-                                ),
-                                m(
-                                    "span.ml20.pointer",
-                                    {
-                                        class: D.persisted.batchMode === "cluster" ? "blue" : "text-desc",
-                                        onclick: () => {
-                                            D.persisted.batchMode = "cluster";
-                                            G.audio.playClick();
-                                            G.world.playerInput.highlightOnSelect(entity.grid);
-                                        },
-                                    },
-                                    t("BatchModeCluster")
-                                ),
-                                m(
-                                    "span.ml20.pointer",
-                                    {
-                                        class: D.persisted.batchMode === "adjacent" ? "blue" : "text-desc",
-                                        onclick: () => {
-                                            D.persisted.batchMode = "adjacent";
-                                            G.audio.playClick();
-                                            G.world.playerInput.highlightOnSelect(entity.grid);
-                                        },
-                                    },
-                                    t("BatchModeAdjacent")
-                                ),
-                            ]),
+                            m("div", batchModeOptions(entity)),
                         ]),
                         m(".hr"),
                         m(
@@ -1076,8 +1039,132 @@ export function InspectPage(): m.Comp<{ xy: string }> {
                             })
                         ),
                     ]),
+                    m(".box", [
+                        m(".two-col.text-s.uppercase", [
+                            m("div", t("BatchMode")),
+                            m("div", batchModeOptions(entity)),
+                        ]),
+                        m(".hr"),
+                        m(
+                            ".pointer.blue.two-col",
+                            {
+                                onclick: () => {
+                                    batchApply(entity, (e) => {
+                                        const g = stringToGrid(e.grid);
+                                        const b = G.world.removeBuilding(g);
+                                        if (b) {
+                                            refundForSellingBuilding(b, sellRefund(), getSellRefundPercentage());
+                                        }
+
+                                    });
+                                },
+                            },
+                            [
+                                m("div",[`Sell ${batchModeLabel()}`]),
+                                m("div", `+$${nf(getBatchSellRefund(entity))}`)
+                            ]
+                        ),    
+                        m(".hr"),
+                        m(
+                            ".pointer.blue.two-col",
+                            {
+                                onclick: () => {
+                                    showAlert(
+                                        `${t("DowngradeBuilding")} ${batchModeLabel()} ${t("BatchDowngradeToLevelX", {
+                                            level: entity.level,
+                                        })}`,
+                                        "",
+                                        [
+                                            { name: t("Cancel"), class: "outline" },
+                                            {
+                                                name: t("Upgrade"),
+                                                class: "outline",
+                                                action: () => {
+                                                    const { success, fail, refund } = doBatchDowngrade(
+                                                        entity,
+                                                        entity.level
+                                                    );
+                                                    G.audio.playClick();
+                                                    hideAlert();
+                                                },
+                                            },
+                                        ]
+                                    );
+                                    const targetLevel: number = entity.level;
+
+                                    batchApply(entity, (e) => {
+                                        if (e.type === entity.type) {
+                                            while ( e.level > targetLevel ) {
+                                                if (e.level > 1) {
+                                                    refundCash(Math.min(D.cashSpent, getCostForBuilding(e.type, e.level) * getSellRefundPercentage()));
+                                                    e.level--;
+                                                }        
+                                            }
+                                        }
+                                    });
+                                },
+                            },
+                            [
+                                m("div",[`Downgrade ${batchModeLabel()}`]),
+                                m("div", t("BatchDowngradeToLevelX", { level: entity.level })),
+                            ]
+                        ),                         
+                    ]),
+
                 ]),
             ]);
         },
     };
+}
+
+function getBatchSellRefund(entity: Entity): number {
+    let refundAmount: number = 0;
+
+    batchApply(entity, (e) => {
+        const bv = buildingValue(entity);
+        refundAmount += Math.min(D.cashSpent, getSellRefundPercentage() * bv);
+    });                                    
+
+    return refundAmount;
+}
+
+function batchModeOptions(entity: Entity): m.Children {
+    return [
+        m(
+            "span.pointer",
+            {
+                class: D.persisted.batchMode === "all" ? "blue" : "text-desc",
+                onclick: () => {
+                    D.persisted.batchMode = "all";
+                    G.audio.playClick();
+                    G.world.playerInput.highlightOnSelect(entity.grid);
+                },
+            },
+            t("BatchModeAll")
+        ),
+        m(
+            "span.ml20.pointer",
+            {
+                class: D.persisted.batchMode === "cluster" ? "blue" : "text-desc",
+                onclick: () => {
+                    D.persisted.batchMode = "cluster";
+                    G.audio.playClick();
+                    G.world.playerInput.highlightOnSelect(entity.grid);
+                },
+            },
+            t("BatchModeCluster")
+        ),
+        m(
+            "span.ml20.pointer",
+            {
+                class: D.persisted.batchMode === "adjacent" ? "blue" : "text-desc",
+                onclick: () => {
+                    D.persisted.batchMode = "adjacent";
+                    G.audio.playClick();
+                    G.world.playerInput.highlightOnSelect(entity.grid);
+                },
+            },
+            t("BatchModeAdjacent")
+        ),
+    ]    
 }

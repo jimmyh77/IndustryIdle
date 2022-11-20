@@ -90,3 +90,20 @@ export function doBatchUpgrade(entity: Entity, toLevel: number): { success: numb
     });
     return { fail, success, cost };
 }
+
+export function doBatchDowngrade(entity: Entity, toLevel: number): { success: number; fail: number; refund: number } {
+    let success = 0;
+    let fail = 0;
+    let refund = 0;
+    batchApply(entity, (e) => {
+        if (e.type === entity.type) {
+            while ( e.level > toLevel ) {
+                if (e.level > 1) {
+                    refundCash(Math.min(D.cashSpent, getCostForBuilding(e.type, e.level) * getSellRefundPercentage()));
+                    e.level--;
+                }        
+            }
+        }
+    });    
+    return { fail, success, refund };
+}

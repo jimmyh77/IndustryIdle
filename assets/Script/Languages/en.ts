@@ -1521,4 +1521,5 @@ export const EN = {
     ClearMyTradesV2: "Purge My Trades",
     OpenSource: "Contribute",
     OpenSourceDesc: "Industry Idle is now open source. You can contribute to the development on Github",
+    BatchDowngradeToLevelX: "To Level %{level}",
 };
