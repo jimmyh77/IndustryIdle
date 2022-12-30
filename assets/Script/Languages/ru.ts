@@ -981,6 +981,7 @@ export const RU = {
     IndustryZoneNotWorkingDesc:
         "Все соседние здания должны образовывать цепочку поставок, иметь максимальный уровень %{level} и не являться частью других промышленных зон",
     PlayerTradeAutoClaim: "Автоматическое завершение исполненных сделок",
+    PlayerTradeAutoClaimDesc: "Automatically claim all filled trades from the player market.",
     MusifyInc: "Корпорация 'Musify'",
     WebflixInc: "Корпорация 'Webflix'",
     CloudStreaming: "Облачный стриминг",
@@ -1032,7 +1033,7 @@ export const RU = {
         "Очки исследований накапливаются, пока вы находитесь не в сети (в соответствии с уровнем вашей исследовательской лаборатории, наукой на вашем складе и временем заработка в офлайне)",
     SanJose: "Сан-Хосе",
     SanJoseBonus:
-        "<li>Уникальное здание: Производитель Микросхем</li><li>Уникальное здание: Корпорация FaceApp</li><li>Уникальное здание: Майнер Биткоинов</li><li>Все здания, потребляющие кремний, имеют максимальный модификатор плитки</li><li>Солнечные панель генерируют 2x энергии</li><li>Кремнивые шахты имеют 2x производительности</li>",
+        "<li>Уникальное здание: Производитель Микросхем</li><li>Уникальное здание: Корпорация FaceApp</li><li>Уникальное здание: Майнер Биткоинов</li><li>Все здания, потребляющие кремний, имеют максимальный модификатор плитки</li><li>Стартовые 100% бонуса мощности промышленной зоны</li><li>Дополнительный доход в размере 25% при финансировании</li><li>Солнечные панель генерируют 2x энергии</li><li>Кремнивые шахты имеют 2x производительности</li>",
     RotterdamBonusV2:
         "<li>Сталелитейные заводы имеют 2Х мощность; </li><li>Заводы нержавеющей стали имеют 2Х мощность; </li><li>Бесплатная транспортировка железа; </li><li>Транспортировка стали стоит на 50% меньше топлива; </li><li>Начните с 2х мощности автопродаж; </li><li>Бесплатная политика Плоская Земля</li>",
     ChipManufacturer: "Производитель Микросхем",
@@ -1098,7 +1099,6 @@ export const RU = {
         "Корпорация 'Социальная сеть' переименовывается в Корпорацию 'Мета' и потребляет Интернет, Игры, Супер компьютер, Биткоин и Догикоин",
     MetaInc: "Корпорация 'Мета'",
     ImportSave: "Импорт сохранения",
-    ClearMyTrades: "Очистить мои сделки",
     SaveVersionTooNew:
         "Ваше сохранение - для версии %{saveVersion}, но версия вашей игры %{gameVersion}. Пожалуйста, сначала обновите свою игру",
     LeaderboardByFlag: "Сортировка по флагам игроков",
@@ -1547,5 +1547,64 @@ export const RU = {
     QuantumComputerLab: "Лаборатория квантовых компьютеров",
     QuantumComputer: "Квантовый компьютер",
     TVStudioPlus: "ТВ Студия+",
-    SetAsDefault: "Set as Default",
+    SetAsDefault: "По умолчанию",
+    ClearTradesTitle: "Очистить мои сделки",
+    ClearTradesDescription:
+        "Деньги и ресурсы НЕ БУДУТ возвращены - используйте это только в том случае, если у вас на сервере застряли недействительные сделки.",
+    ClearTradesNo: "Не очищать",
+    ClearTradesYes: "Очистить мои сделки",
+    OnlyShowPositiveModifiers: "Показывать только положительные модификаторы плитки",
+    OnlyShowPositiveModifiersHint: "Установите флажок слева от здания, чтобы показать модификаторы плитки на карте",
+    ClearMyTradesV2: "Очистить мои сделки",
+    OpenSource: "Внести свой вклад",
+    OpenSourceDesc:
+        "Industry Idle теперь с открытым исходным кодом. Вы можете внести свой вклад в разработку на Github",
+    GameGuides: "Game Guides",
+    GameSetting: "Settings",
+    GameSettingDesc: "Configure the game to best suit you.",
+    GameSettingGeneral: "General",
+    GameSettingDisplay: "Display",
+    GameSettingHideElements: "Hide From View",
+    GameSettingAudio: "Audio",
+    GameSettingGameplay: "Gameplay",
+    GameSettingSinglePlayerMode: "Single Player Mode",
+    GameSettingBuildWarningPowerBank: "Disable Warning: Power Banks",
+    GameSettingBuildWarningPowerBankDesc:
+        "Disable the build warning when trying to place a Power Bank not adjacent to a power generator.",
+    GameSettingBuildWarningResourceBooster: "Disable Warning: Resource Boosters",
+    GameSettingBuildWarningResourceBoosterDesc:
+        "Disable the build warning when trying to place a Resource Booster not adjacent to a mine.",
+    GameSettingVolumeControl: "Volume Control",
+    GameSettingMusicVolume: "Music Volume",
+    GameSettingMusicVolumeDesc: "Controls the volume the background music is played at.",
+    GameSettingSFXVolume: "Sound Effects Volume",
+    GameSettingSFXVolumeOverride: "Sound Effect Volume Override",
+    GameSettingSFXVolumeDesc: "Controls the volume the sound effects are played at.",
+    GameSettingSFXEnableOverride: "Enable SFX volume overrides",
+    GameSettingSFXClick: "Click",
+    GameSettingSFXClickDesc:
+        "Volume control for the sound effect that can be heard when you clicking on different things.",
+    GameSettingSFXCompleted: "Trade Filled",
+    GameSettingSFXCompletedDesc:
+        "The sound effect that can be heard when you receive a new claimable trade via the player market.",
+    GameSettingSFXFreeChest: "Claim Offline Earnings",
+    GameSettingSFXFreeChestDesc:
+        "Volume control for the initial sound effect that can be heard when claiming offline earnings.",
+    GameSettingSFXGold: "Coin Clink",
+    GameSettingSFXGoldDesc:
+        "Volume control for the sound effect of coins clinking that can be heard near the end of the claim offline earnings animation.",
+    GameSettingSFXError: "Error",
+    GameSettingSFXErrorDesc:
+        "Volume control for the sound effect that can be heard when you when you attempt an action that cannot be completed or if an error as occurred.",
+    GameSettingSFXKaching: "Ka-ching",
+    GameSettingSFXKachingDesc:
+        "Volume control for the sound effect that can be heard in a wide variety of contexts. Most commonly when claiming profits from CrowdFunding, Player Trade and the Wholesale Center.",
+    GameSettingSFXLevelup: "Achievement Unlocked",
+    GameSettingSFXLevelupDesc: "Volume control for the sound effect that can be heard when you unlock an achievement.",
+    GameSettingSFXPowerup: "New Wholesale Order",
+    GameSettingSFXPowerupDesc:
+        "Volume control for the sound effect that can be heard when you receive a new Wholesale Order.",
+    GameSettingSFXBubble: "Chat Mention",
+    GameSettingSFXBubbleDesc: "The sound effect that can be heard when you are mentioned '@' in chat.",
+    GameSettingInput: "Input",
 };

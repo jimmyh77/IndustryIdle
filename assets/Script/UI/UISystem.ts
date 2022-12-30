@@ -8,6 +8,7 @@ import { t } from "../General/i18n";
 import { isSteam, NativeSdk } from "../General/NativeSdk";
 import { initWebRTC } from "../General/WebRTC";
 import { AchievementsPage } from "./AchievementsPage";
+import { AudioSettingsPage } from "./AudioSettingsPage";
 import { BuildPage } from "./BuildPage";
 import { ChatPage } from "./ChatPage";
 import { ChooseFlagPage } from "./ChooseFlagPage";
@@ -15,13 +16,18 @@ import { CityPage } from "./CityPage";
 import { ColorThemeEditorPage } from "./ColorThemeEditorPage";
 import { ConglomeratePage } from "./ConglomeratePage";
 import { ConstructionPage } from "./ConstructionPage";
+import { DisplaySettingsPage } from "./DisplaySettingsPage";
 import { FirstTimePage } from "./FirstTimePage";
+import { GameplaySettingsPage } from "./GameplaySettingsPage";
+import { HeadquarterPage } from "./HeadquarterPage";
 import { HudPage } from "./HudPage";
+import { InputSettingsPage } from "./InputSettingsPage";
 import { InspectPage } from "./InspectPage";
 import { LeaderboardPage } from "./LeaderboardPage";
 import { MainPage } from "./MainPage";
 import { PatchNotesPage } from "./PatchNotesPage";
 import { PlayerTradePage } from "./PlayerTradePage";
+import { SettingsPage } from "./SettingsPage";
 import { OnKeydown } from "./Shortcut";
 import { SwissBoostPage } from "./SwissBoostPage";
 import { SwissUpgradePage } from "./SwissUpgradePage";
@@ -169,7 +175,6 @@ export function routeTo(r: keyof typeof UI_ROUTES, params: Record<string, string
 }
 
 export function urlTo(url: string) {
-    AYService.trackEvent(`ui_route_${url.substring(1).split("?")[0]}`);
     m.route.set(url);
 }
 
@@ -200,6 +205,7 @@ window.addEventListener("onBackButtonPressed", () => {
 
 export const UI_ROUTES = {
     "/main": MainPage,
+    "/hq": HeadquarterPage,
     "/inspect": InspectPage,
     "/construction": ConstructionPage,
     "/swiss-upgrade": SwissUpgradePage,
@@ -214,6 +220,11 @@ export const UI_ROUTES = {
     "/choose-flag": ChooseFlagPage,
     "/achievements": AchievementsPage,
     "/patch-notes": PatchNotesPage,
+    "/settings": SettingsPage,
+    "/audio-settings": AudioSettingsPage,
+    "/display-settings": DisplaySettingsPage,
+    "/gameplay-settings": GameplaySettingsPage,
+    "/input-settings": InputSettingsPage,
     "/conglomerate": ConglomeratePage,
 };
 

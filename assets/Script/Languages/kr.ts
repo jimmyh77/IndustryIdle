@@ -945,6 +945,7 @@ export const KR = {
     IndustryZoneMaxBuildingLevel: "최대 건물 레벨",
     IndustryZoneNotWorkingDesc: "인접한 모든 건물들은 공급체인을 형성해야 하며 다른 산업 구역에 포함되지 않아야 합니다",
     PlayerTradeAutoClaim: "거래 자동 청구",
+    PlayerTradeAutoClaimDesc: "Automatically claim all filled trades from the player market.",
     MusifyInc: "Musify 주식회사",
     WebflixInc: "웹플릭스 주식회사",
     CloudStreaming: "클라우드 스트리밍",
@@ -1054,7 +1055,6 @@ export const KR = {
         "소셜 네트워크 주식회사가 메타 주식회사로 변경되고 인터넷, 게임, 슈퍼컴퓨터, 비트코인, 도지코인을 소비합니다",
     MetaInc: "메타 주식회사",
     ImportSave: "세이브 가져오기",
-    ClearMyTrades: "Clear My Trades",
     SaveVersionTooNew:
         "세이브 파일 버전은 %{saveVersion}이지만, 현재 게임 버전은 %{gameVersion}입니다. 게임을 먼저 업데이트 해주세요.",
     LeaderboardByFlag: "플레이어 국기별 통계",
@@ -1486,4 +1486,62 @@ export const KR = {
     QuantumComputer: "Quantum Computer",
     TVStudioPlus: "TV Studio+",
     SetAsDefault: "Set as Default",
+    ClearTradesTitle: "Purge My Trades",
+    ClearTradesDescription:
+        "Cash and resources will NOT be refunded - only use this if you have stale trades stuck on the server",
+    ClearTradesNo: "Don't Purge",
+    ClearTradesYes: "Purge My Trades",
+    OnlyShowPositiveModifiers: "Only show positive tile modifiers",
+    OnlyShowPositiveModifiersHint: "Tick the checkbox on the left of the building to show tile modifiers on the map",
+    ClearMyTradesV2: "Purge My Trades",
+    OpenSource: "Contribute",
+    OpenSourceDesc: "Industry Idle is now open source. You can contribute to the development on Github",
+    GameGuides: "Game Guides",
+    GameSetting: "Settings",
+    GameSettingDesc: "Configure the game to best suit you.",
+    GameSettingGeneral: "General",
+    GameSettingDisplay: "Display",
+    GameSettingHideElements: "Hide From View",
+    GameSettingAudio: "Audio",
+    GameSettingGameplay: "Gameplay",
+    GameSettingSinglePlayerMode: "Single Player Mode",
+    GameSettingBuildWarningPowerBank: "Disable Warning: Power Banks",
+    GameSettingBuildWarningPowerBankDesc:
+        "Disable the build warning when trying to place a Power Bank not adjacent to a power generator.",
+    GameSettingBuildWarningResourceBooster: "Disable Warning: Resource Boosters",
+    GameSettingBuildWarningResourceBoosterDesc:
+        "Disable the build warning when trying to place a Resource Booster not adjacent to a mine.",
+    GameSettingVolumeControl: "Volume Control",
+    GameSettingMusicVolume: "Music Volume",
+    GameSettingMusicVolumeDesc: "Controls the volume the background music is played at.",
+    GameSettingSFXVolume: "Sound Effects Volume",
+    GameSettingSFXVolumeOverride: "Sound Effect Volume Override",
+    GameSettingSFXVolumeDesc: "Controls the volume the sound effects are played at.",
+    GameSettingSFXEnableOverride: "Enable SFX volume overrides",
+    GameSettingSFXClick: "Click",
+    GameSettingSFXClickDesc:
+        "Volume control for the sound effect that can be heard when you clicking on different things.",
+    GameSettingSFXCompleted: "Trade Filled",
+    GameSettingSFXCompletedDesc:
+        "The sound effect that can be heard when you receive a new claimable trade via the player market.",
+    GameSettingSFXFreeChest: "Claim Offline Earnings",
+    GameSettingSFXFreeChestDesc:
+        "Volume control for the initial sound effect that can be heard when claiming offline earnings.",
+    GameSettingSFXGold: "Coin Clink",
+    GameSettingSFXGoldDesc:
+        "Volume control for the sound effect of coins clinking that can be heard near the end of the claim offline earnings animation.",
+    GameSettingSFXError: "Error",
+    GameSettingSFXErrorDesc:
+        "Volume control for the sound effect that can be heard when you when you attempt an action that cannot be completed or if an error as occurred.",
+    GameSettingSFXKaching: "Ka-ching",
+    GameSettingSFXKachingDesc:
+        "Volume control for the sound effect that can be heard in a wide variety of contexts. Most commonly when claiming profits from CrowdFunding, Player Trade and the Wholesale Center.",
+    GameSettingSFXLevelup: "Achievement Unlocked",
+    GameSettingSFXLevelupDesc: "Volume control for the sound effect that can be heard when you unlock an achievement.",
+    GameSettingSFXPowerup: "New Wholesale Order",
+    GameSettingSFXPowerupDesc:
+        "Volume control for the sound effect that can be heard when you receive a new Wholesale Order.",
+    GameSettingSFXBubble: "Chat Mention",
+    GameSettingSFXBubbleDesc: "The sound effect that can be heard when you are mentioned '@' in chat.",
+    GameSettingInput: "Input",
 };

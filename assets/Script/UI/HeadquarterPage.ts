@@ -33,7 +33,7 @@ import { SettingsPage } from "./SettingsPage";
 import { SteamBackupComponent } from "./SteamBackupComponent";
 import { StreamingPage } from "./StreamingPage";
 import { iconB, leftOrRight, reloadGame, uiHeaderRoute } from "./UIHelper";
-import { routeTo, showLoader, showToast } from "./UISystem";
+import { routeTo, showAlert, showLoader, showToast } from "./UISystem";
 import { UserVerification } from "./UserVerification";
 
 const NAME_CHANGE_COOLDOWN_HOUR = 24;
@@ -229,6 +229,11 @@ export function HeadquarterPage(): m.Comp {
                         m(".hr"),
                         m(".row.pointer", { onclick: () => routeTo("/patch-notes") }, [
                             m(".f1", [m("div", t("PatchNotes")), m(".text-desc.text-s", t("PatchNotesDesc"))]),
+                            m(".ml10.blue", iconB("arrow_forward")),
+                        ]),
+                        m(".hr"),
+                        m(".row.pointer", { onclick: () => routeTo("/settings") }, [
+                            m(".f1", [m("div", t("GameSetting")), m(".text-desc.text-s", t("GameSettingDesc"))]),
                             m(".ml10.blue", iconB("arrow_forward")),
                         ]),
                         ifTrue(hasSteamWebSignIn() && !isSteamWebSignedIn(), () => [
@@ -446,7 +451,6 @@ export function HeadquarterPage(): m.Comp {
                             ),
                         ]),
                     ]),
-                    m(SettingsPage),
                     m(".box", [
                         m(".title", t("ExpansionPacks")),
                         m(".hr"),
@@ -482,6 +486,20 @@ export function HeadquarterPage(): m.Comp {
                             ),
                         ]),
                     ]),
+                    m(".box", [
+                        m(".title", t("GameGuides")),
+                        m(".hr"),
+                        m(
+                            ".two-col.pointer",
+                            {
+                                onclick: () => NativeSdk.openUrl("https://steamcommunity.com/app/1574000/guides/"),
+                            },
+                            [
+                                m("div", [m("div", t("ReadSteamGuideV2")), m(".text-desc.text-s", t("ReadSteamGuideV2Desc"))]),
+                                m(".blue.ml20", iconB("link", 30)),
+                            ]
+                        ),
+                    ]),
                     ifTrue(isSteam(), () => m(SteamBackupComponent)),
                     m(".box", [
                         m(".title", t("Credits")),
@@ -508,15 +526,27 @@ export function HeadquarterPage(): m.Comp {
                             ".pointer",
                             {
                                 onclick: async () => {
-                                    showLoader();
-                                    try {
-                                        await Promise.race([clearTrades(D.persisted.userId), resolveIn(2)]);
-                                    } finally {
-                                        reloadGame();
-                                    }
+                                    showAlert(t("ClearTradesTitle"), t("ClearTradesDescription"), [
+                                        {
+                                            name: t("ClearTradesNo"),
+                                            class: "outline",
+                                        },
+                                        {
+                                            name: t("ClearTradesYes"),
+                                            class: "outline red",
+                                            action: async () => {
+                                                showLoader();
+                                                try {
+                                                    await Promise.race([clearTrades(D.persisted.userId), resolveIn(2)]);
+                                                } finally {
+                                                    reloadGame();
+                                                }
+                                            },
+                                        },
+                                    ]);
                                 },
                             },
-                            t("ClearMyTrades")
+                            t("ClearMyTradesV2")
                         ),
                     ]),
                 ]),

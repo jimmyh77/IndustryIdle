@@ -55,10 +55,16 @@ const PriceFilters: Record<PriceFilter, () => string> = {
 let draftTrade: ILocalTrade;
 let resourceFilter: Partial<Record<ResourceFilter, true>> = {};
 let showResourceFilter = false;
-
 let showPriceFilter = false;
-let minPriceFilter = 0;
-let maxPriceFilter = 0;
+
+interface NumberFilter {
+    value: number;
+    text: string;
+}
+let maxResourceAmount: NumberFilter = { value: 0, text: "" };
+let minPriceFilter: NumberFilter = { value: 0, text: "" };
+let maxPriceFilter: NumberFilter = { value: 0, text: "" };
+
 let playerNameFilter = "";
 
 export function PlayerTradePage(): m.Comp<{
@@ -478,29 +484,48 @@ export function PlayerTradePage(): m.Comp<{
                                 ]),
                                 m(".hr.dashed"),
                                 m(".two-col", [
-                                    m(".text-s.uppercase", "Min Price"),
+                                    m(".text-s.uppercase", "Max Resource Amount"),
                                     m("input", {
-                                        min: 0,
-                                        step: 1,
-                                        type: "number",
-                                        value: minPriceFilter,
+                                        placeholder: 0,
+                                        type: "text",
+                                        value: maxResourceAmount.text,
                                         oninput: (e) => {
-                                            minPriceFilter = parseInt(e.target.value, 10) || 0;
+                                            maxResourceAmount = { value: Number(e.target.value), text: e.target.value };
                                         },
                                     }),
                                 ]),
                                 m(".hr.dashed"),
-                                m(".two-col", [
-                                    m(".text-s.uppercase", "Max Price"),
-                                    m("input", {
-                                        min: 0,
-                                        step: 1,
-                                        type: "number",
-                                        value: maxPriceFilter,
-                                        oninput: (e) => {
-                                            maxPriceFilter = parseInt(e.target.value, 10) || 0;
-                                        },
-                                    }),
+                                m(".row", [
+                                    m(".two-col", [
+                                        m(".text-s.uppercase", "Min Price"),
+                                        m("input", {
+                                            placeholder: 0,
+                                            type: "text",
+                                            style: { "margin-right": "10px" },
+                                            value: minPriceFilter.text,
+                                            oninput: (e) => {
+                                                minPriceFilter = {
+                                                    value: Number(e.target.value),
+                                                    text: e.target.value,
+                                                };
+                                            },
+                                        }),
+                                    ]),
+                                    m(".vr.dashed"),
+                                    m(".two-col", [
+                                        m(".text-s.uppercase", "Max Price"),
+                                        m("input", {
+                                            placeholder: 0,
+                                            type: "text",
+                                            value: maxPriceFilter.text,
+                                            oninput: (e) => {
+                                                maxPriceFilter = {
+                                                    value: Number(e.target.value),
+                                                    text: e.target.value,
+                                                };
+                                            },
+                                        }),
+                                    ]),
                                 ]),
                                 m(".hr.dashed"),
                                 m(".two-col", [
@@ -513,14 +538,6 @@ export function PlayerTradePage(): m.Comp<{
                                         },
                                     }),
                                 ]),
-                                m(".hr.dashed"),
-                                uiBoxToggleContent(
-                                    m(".text-s.uppercase", t("PlayerTradeAutoClaim")),
-                                    ClaimConfig.autoClaim,
-                                    () => (ClaimConfig.autoClaim = !ClaimConfig.autoClaim),
-                                    { style: { margin: "-10px 0" } },
-                                    24
-                                ),
                             ]);
                         }),
                     ]),
@@ -557,13 +574,18 @@ export function PlayerTradePage(): m.Comp<{
                                     }
                                     const res = isResourceFilterEmpty ? true : resourceFilter[trade.resource];
                                     let p = true;
-                                    if (minPriceFilter > 0) {
-                                        if (trade.price < minPriceFilter) {
+                                    if (isFinite(maxResourceAmount.value) && maxResourceAmount.value > 0) {
+                                        if (trade.amount > maxResourceAmount.value) {
                                             p = false;
                                         }
                                     }
-                                    if (maxPriceFilter > 0) {
-                                        if (trade.price > maxPriceFilter) {
+                                    if (isFinite(minPriceFilter.value) && minPriceFilter.value > 0) {
+                                        if (trade.price < minPriceFilter.value) {
+                                            p = false;
+                                        }
+                                    }
+                                    if (isFinite(maxPriceFilter.value) && maxPriceFilter.value > 0) {
+                                        if (trade.price > maxPriceFilter.value) {
                                             p = false;
                                         }
                                     }
@@ -630,6 +652,7 @@ export function PlayerTradePage(): m.Comp<{
                                     class: "outline",
                                     action: async () => {
                                         try {
+                                            console.log(trade);
                                             G.audio.playClick();
                                             await cancelTrade(trade);
                                             showToast(t("CancelTradeSuccess"));
@@ -809,7 +832,7 @@ export function PlayerTradePage(): m.Comp<{
                         try {
                             await acceptTrade(trade);
                             lastAcceptTradeAt = serverNow();
-                            G.audio.playEffect(G.audio.kaching);
+                            G.audio.playKaching();
                             showToast(
                                 t("AcceptTradeSuccessV2", {
                                     cashOrResource:
