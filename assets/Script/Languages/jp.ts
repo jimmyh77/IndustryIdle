@@ -1187,7 +1187,10 @@ export const JP = {
     Sausage: "Sausage",
     Hotdog: "Hotdog",
     BatchOperationDesc: "%{number}個の建物に適応します。実行しますか？",
+    BatchOperationGainDesc:
+        "This will apply to %{number} buildings(s). Estimated refund is $%{gain}. Do you want to continue?",
     BatchOperationResult: "%{success}個の一括操作は成功しました",
+    BatchOperationGainResult: "Batch operation result: success: %{success}, fail: %{fail}, total earned: $%{gain}",
     StreamingMakeMeDiscoverable: "他の人から画面を視聴可能にする",
     StreamingMakeMeDiscoverableDesc:
         "あなたのゲームプレイを他のプレイヤーから視聴できるようにします。peer to peerの形式であなたのゲームプレイを配信するために接続され、マイクやウェブカメラは使用しません",
@@ -1551,4 +1554,9 @@ export const JP = {
     GameSettingSFXBubble: "Chat Mention",
     GameSettingSFXBubbleDesc: "The sound effect that can be heard when you are mentioned '@' in chat.",
     GameSettingInput: "Input",
+    PlayerTradesShowHistory: "Show Past Player Trades",
+    PlayerTradesHistory: "Past Player Trades",
+    PlayerTradeFillBy: "Fill By",
+    PlayerTradeCancelled: "Cancelled",
+    FormatTimeAgo: "%{time} ago",
 };

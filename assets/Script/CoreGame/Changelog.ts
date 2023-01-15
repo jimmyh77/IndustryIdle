@@ -1,7 +1,13 @@
 export const CHANGELOG = [
     {
         version: "0.20.3",
-        content: ["QoL: New settings menu (by @GrayTheWanderer)"],
+        content: [
+            "Add a page showing past player trades (by @FishPond)",
+            "QoL: New settings menu (by @GrayTheWanderer)",
+            "QoL: New batch mode action: Downgrade - All/Cluster/Adjacent (by @GrayTheWanderer)",
+            "Add Turkish translation (by @Readrift)",
+            "Improve Steam Deck support (@FishPond)",
+        ],
     },
     {
         version: "0.20.2",

@@ -1216,7 +1216,10 @@ export const ES = {
     Sausage: "Salchicha",
     Hotdog: "Perrito caliente",
     BatchOperationDesc: "This will apply to %{number} buildings(s). Do you want to continue?",
+    BatchOperationGainDesc:
+        "This will apply to %{number} buildings(s). Estimated refund is $%{gain}. Do you want to continue?",
     BatchOperationResult: "Your batch operation has completed for %{success} buildings(s)",
+    BatchOperationGainResult: "Batch operation result: success: %{success}, fail: %{fail}, total earned: $%{gain}",
     StreamingMakeMeDiscoverable: "Make Me Discoverable",
     StreamingMakeMeDiscoverableDesc:
         "Allow other players to watch your gameplay. The connection is peer to peer and only your gameplay is streamed. Microphone or webcam will not be accessed",
@@ -1581,4 +1584,9 @@ export const ES = {
     GameSettingSFXBubble: "Chat Mention",
     GameSettingSFXBubbleDesc: "The sound effect that can be heard when you are mentioned '@' in chat.",
     GameSettingInput: "Input",
+    PlayerTradesShowHistory: "Show Past Player Trades",
+    PlayerTradesHistory: "Past Player Trades",
+    PlayerTradeFillBy: "Fill By",
+    PlayerTradeCancelled: "Cancelled",
+    FormatTimeAgo: "%{time} ago",
 };
